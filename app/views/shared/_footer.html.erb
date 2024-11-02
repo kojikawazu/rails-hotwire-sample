@@ -1,0 +1,24 @@
+<footer class="bg-[#1e293b] border-t border-[#334155] text-[#94a3b8] py-8 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <p class="font-roboto">© <%= ApplicationConfig::COPYRIGHT_YEAR %> <%= ApplicationConfig::COMPANY_NAME %></p>
+      <div class="mt-3 flex justify-center space-x-6">
+        <% if AppConfig.twitter_url.present? %>
+          <%= link_to AppConfig.twitter_url, 
+            class: "text-[#94a3b8] hover:text-white transition-colors",
+            target: "_blank",
+            rel: "noopener" do %>
+            <i class="fab fa-twitter text-lg"></i>
+          <% end %>
+        <% end %>
+        
+        <% if AppConfig.github_url.present? %>
+          <%= link_to AppConfig.github_url,
+              class: "text-[#94a3b8] hover:text-white transition-colors",
+              target: "_blank",
+              rel: "noopener" do %>
+            <i class="fab fa-github text-lg"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+</footer>

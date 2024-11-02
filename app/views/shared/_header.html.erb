@@ -1,0 +1,13 @@
+<header class="bg-[#1e293b] text-white py-6 px-6 border-b border-[#334155]">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold font-roboto bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] text-transparent bg-clip-text">
+        <%= ApplicationConfig::SITE_NAME %>
+      </h1>
+      <nav>
+        <ul class="flex space-x-8">
+          <li><%= link_to "ホーム", root_path, class: "text-[#94a3b8] hover:text-white transition-colors" %></li>
+          <li><%= link_to "設定", "#", class: "text-[#94a3b8] hover:text-white transition-colors" %></li>
+        </ul>
+      </nav>
+    </div>
+</header>
