@@ -33,13 +33,9 @@ class TasksController < ApplicationController
   # タスクを更新
   def update
     @task = Task.find(params[:id])
-    
+  
     if @task.update(task_params)
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(@task, partial: "tasks/task", locals: { task: @task })
-        end
-      end
+      render turbo_stream: turbo_stream.replace(@task, partial: "tasks/task", locals: { task: @task })
     end
   end
 

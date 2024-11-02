@@ -8,30 +8,36 @@
           <%= f.check_box :completed, 
               class: "w-5 h-5 mr-4 text-[#60a5fa] bg-[#1e293b] rounded-md focus:ring-[#60a5fa]",
               data: { controller: "form", action: "change->form#submit" } %>
-          
-          <!-- 表示モード -->
-          <div class="flex items-center gap-2">
-            <span data-task-target="display"
-                  data-action="dblclick->task#edit"
-                  class="<%= task.completed? ? 'line-through text-[#94a3b8]' : 'text-white' %> transition-colors cursor-pointer">
-              <%= task.text %>
-            </span>
-            <button type="button"
-                    data-action="click->task#edit"
-                    class="text-[#94a3b8] hover:text-[#60a5fa] transition-colors">
-              <i class="fas fa-edit"></i>
-            </button>
-          </div>
+        <% end %>
 
-          <!-- 編集モード -->
-          <%= form_with(model: task, class: "hidden", data: { task_target: "form" }) do |f| %>
-            <%= f.text_field :text,
-                class: "px-2 py-1 bg-[#1e293b] text-white rounded border-none focus:ring-2 focus:ring-[#60a5fa]",
-                data: { 
-                  task_target: "input",
-                  action: "blur->task#update keypress->task#handleKeypress"
-                } %>
-          <% end %>
+        <!-- 表示モード -->
+        <div class="flex items-center gap-2">
+          <span data-task-target="display"
+                data-action="dblclick->task#edit"
+                class="<%= task.completed? ? 'line-through text-[#94a3b8]' : 'text-white' %> transition-colors cursor-pointer">
+            <%= task.text %>
+          </span>
+          <button type="button"
+                  data-action="click->task#edit"
+                  class="text-[#94a3b8] hover:text-[#60a5fa] transition-colors">
+            <i class="fas fa-edit"></i>
+          </button>
+        </div>
+
+        <!-- 編集モード -->
+        <%= form_with(
+          model: task,
+          class: "hidden",
+          data: { 
+            task_target: "form",
+            turbo_frame: dom_id(task)
+          }) do |f| %>
+          <%= f.text_field :text,
+            class: "px-2 py-1 bg-[#1e293b] text-white rounded border-none focus:ring-2 focus:ring-[#60a5fa]",
+            data: { 
+              task_target: "input",
+              action: "blur->task#update keypress->task#handleKeypress"
+            } %>
         <% end %>
       </div>
       

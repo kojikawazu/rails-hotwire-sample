@@ -4,7 +4,15 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
     static targets = ["display", "form", "input"]
 
-    // 編集アイコンクリックで編集モードに切り替え
+    // 接続確認
+    connect() {
+        this.element.addEventListener("turbo:submit-end", (event) => {
+            // 編集モード終了
+            this.exitEditMode()
+        })
+    }
+
+    // 編集モード開始
     edit() {
         this.displayTarget.classList.add("hidden")
         this.formTarget.classList.remove("hidden")
@@ -12,25 +20,26 @@ export default class extends Controller {
         this.inputTarget.focus()
     }
 
-    // フォーカスが外れたら更新
+    // タスク更新
     update() {
         if (this.inputTarget.value.trim() === "") return
         this.formTarget.requestSubmit()
     }
 
-    // キー入力の処理
+    // 編集モード終了
+    exitEditMode() {
+        this.displayTarget.classList.remove("hidden")
+        this.formTarget.classList.add("hidden")
+    }
+
+    // エンターキー押下時の処理
     handleKeypress(event) {
         if (event.key === "Enter") {
             event.preventDefault()
             this.update()
         } else if (event.key === "Escape") {
-            this.cancel()
+            // 編集モード終了
+            this.exitEditMode()
         }
-    }
-
-    // 編集をキャンセル
-    cancel() {
-        this.displayTarget.classList.remove("hidden")
-        this.formTarget.classList.add("hidden")
     }
 }
